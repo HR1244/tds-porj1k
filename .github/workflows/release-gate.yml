@@ -8,7 +8,7 @@ jobs:
   test-release-gate:
     runs-on: ubuntu-latest
     steps:
-      - name: TDS identity: 23f1000686@ds.study.iitm.ac.in
+      - name: "TDS identity: 23f1000686@ds.study.iitm.ac.in"
         run: echo "Identity verified for 23f1000686@ds.study.iitm.ac.in"
       
       - name: Check out code
