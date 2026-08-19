@@ -1,0 +1,33 @@
+name: TDS GA7 Release Gate
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  test-release-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: TDS identity: 23f1000686@ds.study.iitm.ac.in
+        run: echo "Identity verified for 23f1000686@ds.study.iitm.ac.in"
+      
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Test endpoint
+        # The URL below is a placeholder. You must update it after deploying the FastAPI server!
+        run: |
+          URL="https://release-gate.example.workers.dev/release-gate" # UPDATE THIS URL
+          
+          # Test with a safe payload
+          PAYLOAD='{"target":"preview","event":"pull_request","ref":"refs/heads/feature","workflow":{"trigger":"pull_request","permissions":{"contents":"read","packages":"write","id-token":"none"},"testsPassed":true,"matrixComplete":true,"failFast":false,"actions":[{"owner":"actions","name":"checkout","ref":"v4"}]},"image":{"multiStage":true,"runsAsRoot":false,"secretMode":"none","criticalVulnerabilities":0,"digestPinned":true}}'
+          
+          RESPONSE=$(curl -s -X POST $URL -H "Content-Type: application/json" -d "$PAYLOAD")
+          echo "Response: $RESPONSE"
+          
+          if echo "$RESPONSE" | grep -q '"promote"'; then
+            echo "Test passed: Expected promote, got promote."
+          else
+            echo "Test failed: Expected promote, but got something else."
+            exit 1
+          fi
