@@ -17,7 +17,7 @@ jobs:
       - name: Test endpoint
         # The URL below is a placeholder. You must update it after deploying the FastAPI server!
         run: |
-          URL="https://release-gate.example.workers.dev/release-gate" # UPDATE THIS URL
+          URL="https://jolly-thunder-6292.byjus-harsh-raj.workers.dev/release-gate" # UPDATE THIS URL
           
           # Test with a safe payload
           PAYLOAD='{"target":"preview","event":"pull_request","ref":"refs/heads/feature","workflow":{"trigger":"pull_request","permissions":{"contents":"read","packages":"write","id-token":"none"},"testsPassed":true,"matrixComplete":true,"failFast":false,"actions":[{"owner":"actions","name":"checkout","ref":"v4"}]},"image":{"multiStage":true,"runsAsRoot":false,"secretMode":"none","criticalVulnerabilities":0,"digestPinned":true}}'
